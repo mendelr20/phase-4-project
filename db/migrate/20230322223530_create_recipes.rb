@@ -7,8 +7,6 @@ class CreateRecipes < ActiveRecord::Migration[6.1]
       t.string :notes
       t.integer :minutes_to_complete
       t.integer :user_id
-      t.integer :source_id
-
       t.timestamps
     end
   end
