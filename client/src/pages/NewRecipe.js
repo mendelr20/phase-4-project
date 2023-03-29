@@ -5,19 +5,11 @@ import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
 function NewRecipe({ user }) {
-  const [title, setTitle] = useState("My Awesome Recipe");
-  const [minutesToComplete, setMinutesToComplete] = useState("30");
-  const [instructions, setInstructions] = useState(`Here's how you make it.
-  
-## Ingredients
-
-- 1c Sugar
-- 1c Spice
-
-## Instructions
-
-**Mix** sugar and spice. _Bake_ for 30 minutes.
-  `);
+  const [name, setName] = useState("My Best Dinner");
+  const [mealCourse, setMealCourse] = useState("Dinner")
+  const [instructions, setInstructions] = useState(`Follow these instructions to make it`);
+  const [notes, setNotes] = useState("Best Dinner")
+  const [minutesToComplete, setMinutesToComplete] = useState(35);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
@@ -31,8 +23,10 @@ function NewRecipe({ user }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title,
+        name,
+        meal_course: mealCourse,
         instructions,
+        notes,
         minutes_to_complete: minutesToComplete,
       }),
     }).then((r) => {
@@ -51,12 +45,21 @@ function NewRecipe({ user }) {
         <h2>Create Recipe</h2>
         <form onSubmit={handleSubmit}>
           <FormField>
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="name">Name</Label>
             <Input
               type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </FormField>
+          <FormField>
+            <Label htmlFor="meal_course">Meal Course</Label>
+            <Input
+              type="text"
+              id="meal_course"
+              value={mealCourse}
+              onChange={(e) => setMealCourse(e.target.value)}
             />
           </FormField>
           <FormField>
@@ -66,6 +69,15 @@ function NewRecipe({ user }) {
               id="minutesToComplete"
               value={minutesToComplete}
               onChange={(e) => setMinutesToComplete(e.target.value)}
+            />
+          </FormField>
+          <FormField>
+            <Label htmlFor="notes">Notes</Label>
+            <Input
+              type="text"
+              id="notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
             />
           </FormField>
           <FormField>
@@ -88,15 +100,6 @@ function NewRecipe({ user }) {
             ))}
           </FormField>
         </form>
-      </WrapperChild>
-      <WrapperChild>
-        <h1>{title}</h1>
-        <p>
-          <em>Time to Complete: {minutesToComplete} minutes</em>
-          &nbsp;·&nbsp;
-          <cite>By {user.username}</cite>
-        </p>
-        <ReactMarkdown>{instructions}</ReactMarkdown>
       </WrapperChild>
     </Wrapper>
   );
