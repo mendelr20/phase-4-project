@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
 
-function NavBar({ user, setUser }) {
+function NavBar({ user, setUser}) {
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
@@ -11,14 +11,23 @@ function NavBar({ user, setUser }) {
       }
     });
   }
-  console.log("user", user)
+ 
   return (
     <Wrapper>
       <Logo>
         <Link to="/">Recipe Ranger</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/new">
+        <Button variant="outline" as={Link} to="/">
+          Home
+        </Button>
+        <Button as={Link} to="/about">
+          About
+        </Button>
+        <Button variant="outline" as={Link} to="/recipes">
+          Recipes
+        </Button>
+        <Button  as={Link} to="/new">
           New Recipe
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
@@ -39,7 +48,7 @@ const Wrapper = styled.header`
 const Logo = styled.h1`
   font-family: "Permanent Marker", cursive;
   font-size: 3rem;
-  color: black;
+  color: #663399;
   margin: 0;
   line-height: 1;
 

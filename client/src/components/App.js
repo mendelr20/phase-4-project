@@ -3,10 +3,14 @@ import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "../pages/Login";
 import RecipeList from "../pages/RecipeList";
+import HomePage from "./HomePage";
 import NewRecipe from "../pages/NewRecipe";
+import About from "./About";
+import RecipePage from "../pages/RecipePage";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     // auto-login
@@ -15,9 +19,12 @@ function App() {
         r.json().then((user) => setUser(user));
       }
     });
+    fetch("/recipes")
+        .then((r) => r.json())
+        .then(setRecipes);
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  if (!user) return <Login  onLogin={setUser} />;
 
   return (
     <>
@@ -25,10 +32,19 @@ function App() {
       <main>
         <Switch>
           <Route path="/new">
-            <NewRecipe user={user} />
+            <NewRecipe setRecipes={setRecipes} user={user} />
+          </Route>
+          <Route path="/recipes/:id">
+            <RecipePage setRecipes={setRecipes} user={user} recipes={recipes} />
+          </Route>
+          <Route path="/recipes">
+            <RecipeList recipes={recipes}/>
+          </Route>
+          <Route path="/about">
+            <About />
           </Route>
           <Route path="/">
-            <RecipeList />
+            <HomePage recipes={recipes} />
           </Route>
         </Switch>
       </main>

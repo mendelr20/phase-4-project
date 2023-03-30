@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
-import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
-function NewRecipe({ user }) {
+function NewRecipe({ user, setRecipes }) {
   const [name, setName] = useState("My Best Dinner");
   const [mealCourse, setMealCourse] = useState("Dinner")
   const [instructions, setInstructions] = useState(`Follow these instructions to make it`);
@@ -32,7 +31,10 @@ function NewRecipe({ user }) {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        history.push("/");
+        r.json().then((data) => {
+          setRecipes((prevRecipes) => [...prevRecipes, data]);
+          history.push("recipes");
+        });
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
