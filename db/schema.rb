@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2023_03_22_223530) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.string "meal_course"

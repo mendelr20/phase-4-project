@@ -50,9 +50,7 @@ function RecipeList() {
   const filteredRecipes =
     filterOption === "All"
       ? sortedRecipes
-      : sortedRecipes.filter(
-          (recipe) => recipe.meal_course === filterOption
-        );
+      : sortedRecipes.filter((recipe) => recipe.meal_course === filterOption);
 
   const searchedRecipes =
     searchQuery === ""
@@ -73,11 +71,7 @@ function RecipeList() {
           <option value="mealDesc">Meal Name: Z to A</option>
         </select>
         <label htmlFor="filter">Filter By:</label>
-        <select
-          id="filter"
-          value={filterOption}
-          onChange={handleFilterChange}
-        >
+        <select id="filter" value={filterOption} onChange={handleFilterChange}>
           {mealCourses.map((mealCourse) => (
             <option key={mealCourse} value={mealCourse}>
               {mealCourse}
@@ -93,35 +87,34 @@ function RecipeList() {
         />
       </FilterBar>
 
-            {filteredRecipes.length > 0 ? (
-              filteredRecipes.map((recipe) => (
-                <Recipe key={recipe.id}>
-                  <Box>
-                    <h2>{recipe.name}</h2>
-                    <p>
-                      <cite>{recipe.meal_course}</cite>
-                      &nbsp;·&nbsp;
-                      <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
-                    </p>
-                    <h3>Notes:</h3>
-                    <p>{recipe.notes}</p>
-                    <h3>Instructions:</h3>
-                    <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
-                  </Box>
-                </Recipe>
-              ))
-            ) : (
-              <>
-                <h2>No Recipes Found</h2>
-                <Button as={Link} to="/new">
-                  Make a New Recipe
-                </Button>
-              </>
-            )}
-          </Wrapper>
-        );
+      {searchedRecipes.length > 0 ? (
+        searchedRecipes.map((recipe) => (
+          <Recipe key={recipe.id}>
+            <Box>
+              <h2>{recipe.name}</h2>
+              <p>
+                <cite>{recipe.meal_course}</cite>
+                &nbsp;·&nbsp;
+                <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
+              </p>
+              <h3>Notes:</h3>
+              <p>{recipe.notes}</p>
+              <h3>Instructions:</h3>
+              <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
+            </Box>
+          </Recipe>
+        ))
+      ) : (
+        <>
+          <h2>No Recipes Found</h2>
+          <Button as={Link} to="/new">
+            Make a New Recipe
+          </Button>
+        </>
+      )}
+    </Wrapper>
+  );
 }
-
 
 const Wrapper = styled.section`
   max-width: 800px;
@@ -132,6 +125,16 @@ const Recipe = styled.article`
   margin-bottom: 24px;
 `;
 
+// const FilterBar = styled.div`
+//   display: flex;
+//   justify-content: flex-end;
+//   margin-bottom: 16px;
+
+//   label {
+//     margin-right: 8px;
+//   }
+// `;
+
 const FilterBar = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -140,6 +143,12 @@ const FilterBar = styled.div`
   label {
     margin-right: 8px;
   }
+
+  input {
+    margin-right: 8px;
+    width: 80px;
+  }
 `;
+
 
 export default RecipeList;

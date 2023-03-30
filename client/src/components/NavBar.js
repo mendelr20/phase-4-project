@@ -11,7 +11,7 @@ function NavBar({ user, setUser }) {
       }
     });
   }
-
+  console.log("user", user)
   return (
     <Wrapper>
       <Logo>
@@ -22,7 +22,7 @@ function NavBar({ user, setUser }) {
           New Recipe
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
-          Logout
+          Logout {user.username}
         </Button>
       </Nav>
     </Wrapper>
@@ -39,7 +39,7 @@ const Wrapper = styled.header`
 const Logo = styled.h1`
   font-family: "Permanent Marker", cursive;
   font-size: 3rem;
-  color: deeppink;
+  color: black;
   margin: 0;
   line-height: 1;
 
