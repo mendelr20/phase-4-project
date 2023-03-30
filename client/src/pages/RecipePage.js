@@ -12,6 +12,7 @@ const RecipePage = ({ recipes, setRecipes, user }) => {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [errors, setErrors] = useState([]);
 
+  console.log(recipes)
   const handleReviewSubmit = async () => {
     try {
       const response = await fetch(`/reviews`, {
@@ -19,7 +20,11 @@ const RecipePage = ({ recipes, setRecipes, user }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ review: { text: reviewText } }),
+        body: JSON.stringify({ 
+          user_id: user.id,
+          recipe_id: recipe.id,
+          review_text: reviewText 
+        })
       });
 
       if (!response.ok) {
@@ -27,20 +32,20 @@ const RecipePage = ({ recipes, setRecipes, user }) => {
         throw new Error(errors);
       }
 
-      const data = await response.json();
+      const review = await response.json(); // fix here
 
-      setRecipes((recipes) =>
-        recipes.map((r) => {
-          if (r.id === data.recipe_id) {
-            return {
-              ...r,
-              reviews: [...r.reviews, data.review],
-            };
-          } else {
-            return r;
+      setRecipes(prevRecipes => {
+        // iterate through the recipes and find the recipe with the matching id
+        const updatedRecipes = prevRecipes.map(recipe => {
+          if (recipe.id === review.recipe_id) {
+            console.log(recipe.id, )
+            // add the new review to the reviews array of the matching recipe
+            recipe.reviews.push(review);
           }
-        })
-      );
+          return recipe;
+        });
+        return updatedRecipes;
+      });
 
       setReviewText("");
       setShowReviewForm(false);
@@ -57,7 +62,7 @@ const RecipePage = ({ recipes, setRecipes, user }) => {
   if (!recipe) {
     return <h2>Recipe not found</h2>;
   }
-
+  
   return (
     <RecipePageWrapper>
       <RecipeName>{recipe.name}</RecipeName>
