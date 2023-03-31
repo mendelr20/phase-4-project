@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
-function NewRecipe({ user, setRecipes }) {
+function NewRecipe({ setRecipes }) {
   const [name, setName] = useState("My Best Dinner");
   const [mealCourse, setMealCourse] = useState("Dinner")
   const [instructions, setInstructions] = useState(`Follow these instructions to make it`);

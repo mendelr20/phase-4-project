@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
+import { UserContext } from "../components/App"
 
-function MyReviews({ recipes, user }) {
+function MyReviews({ recipes }) {
+  const { user } = useContext(UserContext);
   const [sortOption, setSortOption] = useState("none");
   const [filterOption, setFilterOption] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -119,7 +121,9 @@ function MyReviews({ recipes, user }) {
           </Button>
         </>
       )}
-      {searchQuery !== "" && <Button onClick={() => setSearchQuery("")}>Clear Search</Button>}
+      {searchQuery !== "" && (
+        <Button onClick={() => setSearchQuery("")}>Clear Search</Button>
+      )}
       {sortOption !== "none" && (
         <Button onClick={() => setSortOption("none")}>Clear Sort By</Button>
       )}

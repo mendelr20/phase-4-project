@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
+import { UserContext } from "./App";
 
-function NavBar({ user, setUser}) {
+function NavBar() {
+  const { user, setUser } = useContext(UserContext);
+
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
@@ -11,7 +14,7 @@ function NavBar({ user, setUser}) {
       }
     });
   }
- 
+
   return (
     <Wrapper>
       <Logo>
@@ -30,7 +33,7 @@ function NavBar({ user, setUser}) {
         <Button variant="outline" as={Link} to="/recipes">
           Recipes
         </Button>
-        <Button  as={Link} to="/new">
+        <Button as={Link} to="/new">
           New Recipe
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>

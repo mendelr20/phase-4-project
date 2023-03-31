@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { Button } from "../styles";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../components/App"
 
-const RecipePage = ({ recipes, setRecipes, user }) => {
+const RecipePage = ({ recipes, setRecipes }) => {
+  const { user } = useContext(UserContext);
   const { id } = useParams();
   const recipe = recipes.find((r) => r.id === Number(id));
 
