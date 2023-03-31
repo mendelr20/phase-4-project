@@ -18,11 +18,14 @@ function NavBar({ user, setUser}) {
         <Link to="/">Recipe Ranger</Link>
       </Logo>
       <Nav>
-        <Button variant="outline" as={Link} to="/">
+        <Button as={Link} to="/">
           Home
         </Button>
-        <Button as={Link} to="/about">
+        <Button variant="outline" as={Link} to="/about">
           About
+        </Button>
+        <Button as={Link} to="/myreviews">
+          My Reviews
         </Button>
         <Button variant="outline" as={Link} to="/recipes">
           Recipes

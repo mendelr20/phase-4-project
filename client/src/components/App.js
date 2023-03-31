@@ -6,6 +6,7 @@ import RecipeList from "../pages/RecipeList";
 import HomePage from "./HomePage";
 import NewRecipe from "../pages/NewRecipe";
 import About from "./About";
+import MyReviews from "../pages/MyReviews";
 import RecipePage from "../pages/RecipePage";
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
         <Switch>
           <Route path="/new">
             <NewRecipe setRecipes={setRecipes} user={user} />
+          </Route>
+          <Route path="/myreviews">
+            <MyReviews recipes={recipes} user={user}/>
           </Route>
           <Route path="/recipes/:id">
             <RecipePage setRecipes={setRecipes} user={user} recipes={recipes} />

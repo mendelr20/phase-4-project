@@ -18,9 +18,9 @@ function HomePage({ recipes }) {
                 &nbsp;·&nbsp;
                 <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
               </p>
-              <Link as={Link} to={`/recipes/${recipe.id}`}>
-                View Recipe
-              </Link>
+              <Button as={Link} className="see-more" to={`/recipes/${recipe.id}`}>
+              See More
+            </Button>
             </Box>
           </Recipe>
         ))}

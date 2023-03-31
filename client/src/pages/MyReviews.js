@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
-function RecipeList({ recipes }) {
+function MyReviews({ recipes, user }) {
   const [sortOption, setSortOption] = useState("none");
   const [filterOption, setFilterOption] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,14 +26,16 @@ function RecipeList({ recipes }) {
     setSearchQuery("");
   };
 
-  console.log(recipes)
-
   const mealCourses = [
     "All",
     ...new Set(recipes.map((recipe) => recipe.meal_course)),
   ].sort();
 
-  const sortedRecipes = [...recipes].sort((a, b) => {
+  const reviewedRecipes = recipes.filter((recipe) =>
+    recipe.reviews.some((review) => review.user.id === user.id)
+  );
+
+  const sortedRecipes = [...reviewedRecipes].sort((a, b) => {
     if (sortOption === "timeAsc") {
       return a.minutes_to_complete - b.minutes_to_complete;
     } else if (sortOption === "timeDesc") {
@@ -88,6 +90,7 @@ function RecipeList({ recipes }) {
         />
         <button onClick={handleClearFilters}>Clear Filters</button>
       </FilterBar>
+
       {searchedRecipes.length > 0 ? (
         searchedRecipes.map((recipe) => (
           <Recipe key={recipe.id}>
@@ -190,4 +193,4 @@ const FilterBar = styled.div`
   }
 `;
 
-export default RecipeList;
+export default MyReviews;

@@ -18,6 +18,27 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    @review = Review.find(params[:id])
+    if @review.destroy
+      render json: { message: 'Review deleted successfully' }
+    else
+      render json: { error: 'Failed to delete review' }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @review = Review.find(params[:id])
+    if @review.update(review_params)
+      render json: {
+        review: @review,
+        user: @user.as_json(only: [:id, :username]) # include user info in the response
+      }, status: :ok
+    else
+      render json: { errors: @review.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def find_user
@@ -36,10 +57,3 @@ class ReviewsController < ApplicationController
     render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
   end
 end
-
-
-  
-  
-  
-  
-  
