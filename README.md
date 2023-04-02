@@ -23,13 +23,13 @@ Sure, here's the updated section:
 ## Installation
 To install, fork and clone this repository. Once you've cloned this repository in your terminal, cd into the correct folder.
 
-# Frontend
+## Frontend
 To start up the frontend, cd into the client folder and run npm install to install the required dependencies. Then, run npm start to start up the React app.
 
-# Backend
+## Backend
 To start up the backend, cd into the server folder and run bundle install to install the required gems. Then, run rails db:seed or rails db:reset to seed or reset the database with initial data. Finally, run rails server to start up the Rails server.
 
-Usage
+## Usage
 Once both the frontend and backend are running, you can access the web application at http://localhost:4000. From there, you can browse and filter through the list of recipes, create, delete, and update your recipe reviews, and more.
 
 Contribution
