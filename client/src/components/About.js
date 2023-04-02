@@ -16,7 +16,7 @@ function AboutPage() {
             also allows users to view recipe details, add reviews, and edit or
             delete reviews they have previously submitted.
           </Description>
-          <Button to="/recipes">See Recipe List</Button>
+          <Button as={Link} to="/recipes">See Recipe List</Button>
         </ContentWrapper>
       </BoxShadow>
     </Wrapper>
