@@ -5,14 +5,16 @@ import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
 function NewRecipe({ setRecipes }) {
   const [name, setName] = useState("My Best Dinner");
-  const [mealCourse, setMealCourse] = useState("Dinner")
-  const [instructions, setInstructions] = useState(`Follow these instructions to make it`);
-  const [notes, setNotes] = useState("Best Dinner")
+  const [mealCourse, setMealCourse] = useState("Dinner");
+  const [instructions, setInstructions] = useState(
+    `Follow these instructions to make it`
+  );
+  const [notes, setNotes] = useState("Best Dinner");
   const [minutesToComplete, setMinutesToComplete] = useState(35);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  console.log(errors)
+  console.log(errors);
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);

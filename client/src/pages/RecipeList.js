@@ -114,7 +114,9 @@ function RecipeList({ recipes }) {
           </Button>
         </>
       )}
-      {searchQuery !== "" && <Button onClick={() => setSearchQuery("")}>Clear Search</Button>}
+      {searchQuery !== "" && (
+        <Button onClick={() => setSearchQuery("")}>Clear Search</Button>
+      )}
       {sortOption !== "none" && (
         <Button onClick={() => setSortOption("none")}>Clear Sort By</Button>
       )}

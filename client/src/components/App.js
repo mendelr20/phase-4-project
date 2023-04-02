@@ -15,7 +15,7 @@ export const UserContext = React.createContext();
 function App() {
   const [user, setUser] = useState(null);
   const [recipes, setRecipes] = useState([]);
-
+  console.log(recipes);
   useEffect(() => {
     // auto-login
     fetch("/me").then((r) => {
@@ -24,11 +24,11 @@ function App() {
       }
     });
     fetch("/recipes")
-        .then((r) => r.json())
-        .then(setRecipes);
+      .then((r) => r.json())
+      .then(setRecipes);
   }, []);
 
-  if (!user) return <Login  onLogin={setUser} />;
+  if (!user) return <Login onLogin={setUser} />;
 
   return (
     // wrap the app in the user context provider
@@ -41,13 +41,17 @@ function App() {
               <NewRecipe setRecipes={setRecipes} />
             </Route>
             <Route path="/myreviews">
-              <MyReviews recipes={recipes}/>
+              <MyReviews recipes={recipes} />
             </Route>
             <Route path="/recipes/:id">
-              <RecipePage setRecipes={setRecipes} user={user} recipes={recipes} />
+              <RecipePage
+                setRecipes={setRecipes}
+                user={user}
+                recipes={recipes}
+              />
             </Route>
             <Route path="/recipes">
-              <RecipeList recipes={recipes}/>
+              <RecipeList recipes={recipes} />
             </Route>
             <Route path="/about">
               <About />

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
@@ -18,14 +18,33 @@ function HomePage({ recipes }) {
                 &nbsp;·&nbsp;
                 <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
               </p>
-              <Button as={Link} className="see-more" to={`/recipes/${recipe.id}`}>
-              See More
-            </Button>
+              <Button
+                as={Link}
+                className="see-more"
+                to={`/recipes/${recipe.id}`}
+              >
+                See More
+              </Button>
             </Box>
           </Recipe>
         ))}
       </FeaturedRecipes>
-      <SeeAllRecipesButton as={Link} to="/recipes">See All Recipes</SeeAllRecipesButton>
+      <SeeAllRecipesButton as={Link} to="/recipes">
+        See All Recipes
+      </SeeAllRecipesButton>
+      <ContactInformation>
+        <h5>
+          <a href="https://github.com/mendelr20">Mendel Rosenblum</a>
+          <br />
+          <br />
+          <a href="tel:973-650-4936">Number: 973-650-4936</a>
+          <br />
+          <br />
+          <a href="mailto:rosenblummm@gmail.com">
+            Email: Rosenblummm@gmail.com
+          </a>
+        </h5>
+      </ContactInformation>
     </Wrapper>
   );
 }
@@ -37,6 +56,27 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+const ContactInformation = styled.div`
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h5 {
+    font-size: 18px;
+    text-align: center;
+
+    a {
+      color: #663399;
+      text-decoration: none;
+      margin-bottom: 8px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 `;
 
 const Title = styled.h1`
@@ -86,4 +126,3 @@ const SeeAllRecipesButton = styled(Button)`
 `;
 
 export default HomePage;
-

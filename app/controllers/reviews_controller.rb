@@ -7,16 +7,19 @@ class ReviewsController < ApplicationController
   def create
     review = @user.reviews.new(review_params)
     if review.save
-      recipe = Recipe.find(review.recipe_id)
-      recipe.reviews << review
       render json: {
-        review: review,
-        user: @user.as_json(only: [:id, :username]) # include user info in the response
+        id: review.id,
+        review_text: review.review_text,
+        user: {
+          id: @user.id,
+          username: @user.username
+        }
       }, status: :created
     else
       render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  
 
   def destroy
     @review = Review.find(params[:id])
@@ -31,13 +34,18 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     if @review.update(review_params)
       render json: {
-        review: @review,
-        user: @user.as_json(only: [:id, :username]) # include user info in the response
+        id: @review.id,
+        review_text: @review.review_text,
+        user: {
+          id: @review.user.id,
+          username: @review.user.username
+        }
       }, status: :ok
     else
       render json: { errors: @review.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  
 
   private
 

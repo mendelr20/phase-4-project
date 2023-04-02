@@ -29,11 +29,23 @@ const RecipePage = ({ recipes, setRecipes }) => {
     }).then((r) => {
       if (r.ok) {
         r.json().then((data) => {
+          setRecipes((prevRecipes) => {
+            // find recipe with matching ID
+            const updatedRecipes = prevRecipes.map((prevRecipe) => {
+              if (prevRecipe.id === recipe.id) {
+                // add new review to existing reviews array
+                return {
+                  ...prevRecipe,
+                  reviews: [...prevRecipe.reviews, data],
+                };
+              }
+              return prevRecipe;
+            });
+            return updatedRecipes;
+          });
           setReviewText("");
           setShowReviewForm(false);
           setErrors([]);
-          //update State
-          console.log(data);
         });
       } else {
         r.json().then((err) => setErrors(err.errors));
@@ -82,8 +94,26 @@ const RecipePage = ({ recipes, setRecipes }) => {
       body: JSON.stringify({ review_text: editingReview.review_text }),
     }).then((r) => {
       if (r.ok) {
-        r.json().then((recipes) => {
-          //update state
+        r.json().then((data) => {
+          setRecipes((prevRecipes) => {
+            const updatedRecipes = prevRecipes.map((prevRecipe) => {
+              if (prevRecipe.id === recipe.id) {
+                const updatedReviews = prevRecipe.reviews.map((prevReview) => {
+                  if (prevReview.id === editingReview.id) {
+                    return data;
+                  } else {
+                    return prevReview;
+                  }
+                });
+                return {
+                  ...prevRecipe,
+                  reviews: updatedReviews,
+                };
+              }
+              return prevRecipe;
+            });
+            return updatedRecipes;
+          });
           setEditingReview(null);
           setShowReviewForm(false);
           setErrors([]);

@@ -49,7 +49,6 @@ const Logo = styled.h1`
 const Wrapper = styled.section`
   display: flex;
   justify-content: center;
-  
 `;
 
 const ContentWrapper = styled.div`

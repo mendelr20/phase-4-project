@@ -2,14 +2,14 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
-import { UserContext } from "../components/App"
+import { UserContext } from "../components/App";
 
 function MyReviews({ recipes }) {
   const { user } = useContext(UserContext);
   const [sortOption, setSortOption] = useState("none");
   const [filterOption, setFilterOption] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  
+
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
   };
