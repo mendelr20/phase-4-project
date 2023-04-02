@@ -6,18 +6,19 @@ class RecipesController < ApplicationController
   end
 
   def create
-      @user = User.find_by(id: session[:user_id])
-      recipe = Recipe.create(recipe_params);
-      if recipe.valid?
-          render json: recipe, status: :created
-      else
-          render json: {errors: recipe.errors.full_messages} , status: :unprocessable_entity
-      end
+    @user = User.find_by(id: session[:user_id])
+    recipe = Recipe.new(recipe_params)
+  
+    if recipe.save
+      render json: recipe, status: :created
+    else
+      render json: { errors: recipe.errors.full_messages }, status: :unprocessable_entity
+    end
   end
+  
   
   private
   def recipe_params
-      params.permit(:title, :instructions, :minutes_to_complete)
       params.permit(:name, :meal_course, :instructions, :notes, :minutes_to_complete )
   end
   def authorize

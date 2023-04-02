@@ -20,7 +20,8 @@ const RecipePage = ({ recipes, setRecipes }) => {
     errors.map((error) => {
       return <li key={error}>{error}</li>
     })}</p> : null
-    console.log(errors)
+    
+    
   const handleReviewSubmit = async () => {
     try {
       const response = await fetch(`/reviews`, {

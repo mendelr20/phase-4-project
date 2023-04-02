@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
         user: @user.as_json(only: [:id, :username]) # include user info in the response
       }, status: :created
     else
-      render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
+      render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class ReviewsController < ApplicationController
     if @review.destroy
       render json: { message: 'Review deleted successfully' }
     else
-      render json: { error: 'Failed to delete review' }, status: :unprocessable_entity
+      render json: { errors: @review.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -50,10 +50,10 @@ class ReviewsController < ApplicationController
   end
 
   def render_record_not_found
-    render json: {error: 'Unauthorized'}, status: :unauthorized
+    render json: { error: 'Unauthorized' }, status: :unauthorized
   end
 
-  def render_unprocessable_entity(invalid)
-    render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+  def render_unprocessable_entity(exception)
+    render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
   end
 end
