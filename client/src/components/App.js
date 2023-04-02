@@ -44,7 +44,7 @@ function App() {
               <MyReviews recipes={recipes}/>
             </Route>
             <Route path="/recipes/:id">
-              <RecipePage setRecipes={setRecipes} recipes={recipes} />
+              <RecipePage setRecipes={setRecipes} user={user} recipes={recipes} />
             </Route>
             <Route path="/recipes">
               <RecipeList recipes={recipes}/>

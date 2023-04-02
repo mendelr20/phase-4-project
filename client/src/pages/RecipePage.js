@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { Button } from "../styles";
+import { Button, Error, FormField } from "../styles";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../components/App"
+import { UserContext } from "../components/App";
 
 const RecipePage = ({ recipes, setRecipes }) => {
   const { user } = useContext(UserContext);
@@ -13,131 +13,86 @@ const RecipePage = ({ recipes, setRecipes }) => {
   const [reviewText, setReviewText] = useState("");
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [editingReview, setEditingReview] = useState(null);
-
   const [errors, setErrors] = useState([]);
-  
-  const errDisplay = errors !== undefined ? <p className='make_red'>{
-    errors.map((error) => {
-      return <li key={error}>{error}</li>
-    })}</p> : null
-    
-    
-  const handleReviewSubmit = async () => {
-    try {
-      const response = await fetch(`/reviews`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: user.id,
-          recipe_id: recipe.id,
-          review_text: reviewText,
-        }),
-      })
-  
-      const responseData = await response.json();
-  
-      if (response.ok) {
+
+  function handleReviewSubmit() {
+    fetch(`/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        recipe_id: recipe.id,
+        review_text: reviewText,
+      }),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => {
+          setReviewText("");
+          setShowReviewForm(false);
+          setErrors([]);
+          //update State
+          console.log(data);
+        });
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
+
+  const handleReviewFormToggle = () => {
+    setShowReviewForm(!showReviewForm);
+  };
+
+  function deleteReview(reviewId) {
+    fetch(`/reviews/${reviewId}`, {
+      method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
         setRecipes((recipes) => {
           const updatedRecipes = recipes.map((recipe) => {
-            const updatedReviews =
-              recipe.id === responseData.recipe_id
-                ? [...recipe.reviews, responseData]
-                : recipe.reviews;
+            const updatedReviews = recipe.reviews.filter(
+              (review) => review.id !== reviewId
+            );
             return {
               ...recipe,
               reviews: updatedReviews,
             };
           });
-          console.log(updatedRecipes)
           return updatedRecipes;
         });
-  
-        setReviewText("");
-        setShowReviewForm(false);
-        setErrors([]);
       } else {
-        throw new Error(responseData);
+        r.json().then((err) => setErrors(err.errors));
       }
-    } catch (error) {
-      setErrors([error.message]);
-    }
-  };
-  
-
-  const handleReviewFormToggle = () => {
-    setShowReviewForm(!showReviewForm);
-  };
-  const deleteReview = async (reviewId) => {
-    try {
-      const response = await fetch(`/reviews/${reviewId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        const errors = await response.json();
-        throw new Error(errors);
-      }
-      setRecipes((recipes) => {
-        const updatedRecipes = recipes.map((recipe) => {
-          const updatedReviews = recipe.reviews.filter(
-            (review) => review.id !== reviewId
-          );
-          return {
-            ...recipe,
-            reviews: updatedReviews,
-          };
-        });
-        return updatedRecipes;
-      });
-    } catch (error) {
-      setErrors([error.message]);
-    }
-  };
+    });
+  }
 
   const handleReviewDelete = (review) => {
     deleteReview(review.id);
     setShowReviewForm(false);
   };
 
-  const handleEditSubmit = async () => {
-    try {
-      const response = await fetch(`/reviews/${editingReview.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ review_text: editingReview.review_text }),
-      });
-
-      if (!response.ok) {
-        const errors = await response.json();
-        throw new Error(errors);
-      }
-
-      const updatedReview = await response.json();
-
-      setRecipes((recipes) => {
-        const updatedRecipes = recipes.map((recipe) => {
-          const updatedReviews = recipe.reviews.map((review) =>
-            review.id === updatedReview.id ? updatedReview : review
-          );
-          return {
-            ...recipe,
-            reviews: updatedReviews,
-          };
+  function handleEditSubmit() {
+    fetch(`/reviews/${editingReview.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ review_text: editingReview.review_text }),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((recipes) => {
+          //update state
+          setEditingReview(null);
+          setShowReviewForm(false);
+          setErrors([]);
         });
-        return updatedRecipes;
-      });
-
-      setEditingReview(null);
-      setShowReviewForm(false);
-      setErrors([]);
-    } catch (error) {
-      setErrors([error.message]);
-
-    }
-  };
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
 
   const handleEditReview = (review) => {
     setEditingReview(review);
@@ -150,7 +105,6 @@ const RecipePage = ({ recipes, setRecipes }) => {
 
   return (
     <RecipePageWrapper>
-      {errDisplay}
       <RecipeName>{recipe.name}</RecipeName>
       <MealCourse>Meal Course: {recipe.meal_course}</MealCourse>
       <MinutesToComplete>
@@ -161,6 +115,11 @@ const RecipePage = ({ recipes, setRecipes }) => {
       <InstructionsTitle>Instructions:</InstructionsTitle>
       <Instructions>{recipe.instructions}</Instructions>
       <ReviewsTitle>Reviews:</ReviewsTitle>
+      <FormField>
+        {errors.map((err) => (
+          <Error key={err}>{err}</Error>
+        ))}
+      </FormField>
       {showReviewForm || editingReview ? (
         <ReviewFormWrapper>
           <ReviewFormTextArea
@@ -186,19 +145,22 @@ const RecipePage = ({ recipes, setRecipes }) => {
           Create a Review
         </RecipePageButton>
       )}
-      <p>
-      </p>
+      <p></p>
       {recipe.reviews.map((review) => (
         <Review key={review.id}>
           <p>{review.review_text}</p>
           <span>Review by: {review.user.username}</span>
           {review.user.id === user.id && (
             <>
-            <p>
-              <Button onClick={() => handleEditReview(review)}>Edit</Button>
-            </p>
-            <p> <Button onClick={() => handleReviewDelete(review)}>Delete</Button></p>
-             
+              <p>
+                <Button onClick={() => handleEditReview(review)}>Edit</Button>
+              </p>
+              <p>
+                {" "}
+                <Button onClick={() => handleReviewDelete(review)}>
+                  Delete
+                </Button>
+              </p>
             </>
           )}
         </Review>

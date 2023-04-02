@@ -26,8 +26,6 @@ function RecipeList({ recipes }) {
     setSearchQuery("");
   };
 
-  console.log(recipes)
-
   const mealCourses = [
     "All",
     ...new Set(recipes.map((recipe) => recipe.meal_course)),
