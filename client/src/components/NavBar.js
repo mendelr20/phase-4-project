@@ -28,7 +28,7 @@ function NavBar() {
           About
         </Button>
         <Button as={Link} to="/myreviews">
-          My Reviews
+          My Reviewed Recipes 
         </Button>
         <Button variant="outline" as={Link} to="/recipes">
           Recipes
