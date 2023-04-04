@@ -15,7 +15,7 @@ export const UserContext = React.createContext();
 function App() {
   const [user, setUser] = useState(null);
   const [recipes, setRecipes] = useState([]);
-  console.log(recipes);
+
   useEffect(() => {
     // auto-login
     fetch("/me").then((r) => {
