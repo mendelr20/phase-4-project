@@ -46,7 +46,7 @@ function NavBar() {
 
 const Wrapper = styled.header`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   padding: 8px;
 `;
@@ -57,6 +57,7 @@ const Logo = styled.h1`
   color: #663399;
   margin: 0;
   line-height: 1;
+  flex-grow: 1;
 
   a {
     color: inherit;
@@ -67,8 +68,7 @@ const Logo = styled.h1`
 const Nav = styled.nav`
   display: flex;
   gap: 4px;
-  position: absolute;
-  right: 8px;
+  margin-top: 16px;
 `;
 
 export default NavBar;
