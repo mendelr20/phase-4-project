@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
-function HomePage({ recipes }) {
+function HomePage({ recipes = [] }) {
   const featuredRecipes = recipes.slice(0, 4); // display the first 4 recipes as featured recipes
 
   return (
