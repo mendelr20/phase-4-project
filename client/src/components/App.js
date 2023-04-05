@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
-import Login from "../pages/Login";
-import RecipeList from "../pages/RecipeList";
+import Login from "./Login";
+import RecipeList from "./RecipeList";
 import HomePage from "./HomePage";
-import NewRecipe from "../pages/NewRecipe";
+import NewRecipe from "./NewRecipe";
 import About from "./About";
-import MyReviews from "../pages/MyReviews";
-import RecipePage from "../pages/RecipePage";
+import MyReviews from "./MyReviews";
+import RecipePage from "./RecipePage";
 
 // create a context for the user
 export const UserContext = React.createContext();

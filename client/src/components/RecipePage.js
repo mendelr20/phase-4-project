@@ -3,7 +3,7 @@ import { Button, Error, FormField } from "../styles";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../components/App";
+import { UserContext } from "./App";
 
 const RecipePage = ({ recipes, setRecipes }) => {
   const { user } = useContext(UserContext);

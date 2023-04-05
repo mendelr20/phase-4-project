@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
-import { UserContext } from "../components/App";
+import { UserContext } from "./App";
 
 function MyReviews({ recipes }) {
   const { user } = useContext(UserContext);
