@@ -1,5 +1,7 @@
 class RecipesController < ApplicationController
   before_action :authorize
+  skip_before_action :authorize, only: [:index]
+
   def index
       recipes = Recipe.all
       render json: recipes, status: :created
@@ -25,3 +27,10 @@ class RecipesController < ApplicationController
       return render json: {errors: ["Not authorized"]}, status: :unauthorized unless session.include? :user_id
   end
 end
+
+
+## authorize in app
+## authorize reviews
+## authorize exception for recipies
+
+##rename my reviews route
