@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :authorize
+  
   skip_before_action :authorize, only: [:index]
 
   def index
@@ -23,9 +23,7 @@ class RecipesController < ApplicationController
   def recipe_params
       params.permit(:name, :meal_course, :instructions, :notes, :minutes_to_complete )
   end
-  def authorize
-      return render json: {errors: ["Not authorized"]}, status: :unauthorized unless session.include? :user_id
-  end
+
 end
 
 

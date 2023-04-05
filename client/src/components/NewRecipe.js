@@ -14,7 +14,7 @@ function NewRecipe({ setRecipes }) {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  console.log(errors);
+
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);

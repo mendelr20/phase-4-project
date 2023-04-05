@@ -6,7 +6,7 @@ import RecipeList from "./RecipeList";
 import HomePage from "./HomePage";
 import NewRecipe from "./NewRecipe";
 import About from "./About";
-import MyReviews from "./MyReviews";
+import MyReviews from "./MyRecipes";
 import RecipePage from "./RecipePage";
 
 // create a context for the user
@@ -40,7 +40,7 @@ function App() {
             <Route path="/new">
               <NewRecipe setRecipes={setRecipes} />
             </Route>
-            <Route path="/myreviews">
+            <Route path="/myrecipes">
               <MyReviews recipes={recipes} />
             </Route>
             <Route path="/recipes/:id">
