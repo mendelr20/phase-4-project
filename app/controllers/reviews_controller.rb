@@ -45,6 +45,12 @@ class ReviewsController < ApplicationController
       render json: { errors: @review.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
+  def top 
+    n = params[:n]
+    top_r = Recipe.all.sort_by{|r| r.reviews.count}.reverse.take(n.to_i)
+    render json: top_r, status: :created
+  end
   
 
   private
