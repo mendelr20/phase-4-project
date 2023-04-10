@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
   
 
   def destroy
-    @review = Review.find(params[:id])
+    @review = @user.reviews.find(params[:id])
     if @review.destroy
       render json: { message: 'Review deleted successfully' }
     else
@@ -31,7 +31,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review = Review.find(params[:id])
+    @review = @user.reviews.find(params[:id])
     if @review.update(review_params)
       render json: {
         id: @review.id,
