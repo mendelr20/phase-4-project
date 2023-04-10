@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  
+
   skip_before_action :authorize, only: [:index]
 
   def index
@@ -26,9 +26,3 @@ class RecipesController < ApplicationController
 
 end
 
-
-## authorize in app
-## authorize reviews
-## authorize exception for recipies
-
-##rename my reviews route
