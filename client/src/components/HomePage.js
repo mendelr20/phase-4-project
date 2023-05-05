@@ -49,6 +49,8 @@ function HomePage({ recipes }) {
   );
 }
 
+
+
 const Wrapper = styled.section`
   max-width: 800px;
   margin: 0 auto;
@@ -57,6 +59,7 @@ const Wrapper = styled.section`
   align-items: center;
   justify-content: center;
 `;
+
 const ContactInformation = styled.div`
   margin-top: 48px;
   display: flex;
@@ -64,8 +67,9 @@ const ContactInformation = styled.div`
   align-items: center;
 
   h5 {
-    font-size: 18px;
+    font-size: 24px;
     text-align: center;
+    line-height: 1.6;
 
     a {
       color: #663399;
@@ -80,11 +84,13 @@ const ContactInformation = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 48px;
+  font-size: 72px;
   font-weight: bold;
   color: #663399;
   text-align: center;
   margin-bottom: 48px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 `;
 
 const FeaturedRecipes = styled.div`
@@ -103,12 +109,19 @@ const Recipe = styled.article`
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 36px;
     margin-bottom: 8px;
+    text-align: center;
+    color: #663399;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
 
   p {
     margin-bottom: 16px;
+    font-size: 20px;
+    text-align: center;
+    color: #666;
   }
 `;
 
