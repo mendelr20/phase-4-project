@@ -8,9 +8,13 @@ Recipe Ranger showcases a comprehensive list of all the recipes in the system, a
 ## Contributors
 **Mendel Rosenblum**
 <br />
-github: [mendelr20](https://github.com/mendelr20)
+[Github](https://github.com/mendelr20)
 <br />
-email: RosenblumMM@gmail.com
+[Linkedin](https://www.linkedin.com/in/mendelrosenblum/)
+<br />
+[Medium](https://medium.com/@mendelrosenblum)
+<br />
+Email RosenblumMM@gmail.com
 
 ## Built With
 This project was built with the following:
@@ -18,7 +22,6 @@ This project was built with the following:
 - [Styled Components](https://styled-components.com/) 
 - [JSON-server Auth](https://www.npmjs.com/package/json-server-auth)
 
-Sure, here's the updated section:
 
 ## Installation
 To install, fork and clone this repository. Once you've cloned this repository in your terminal, cd into the correct folder.
